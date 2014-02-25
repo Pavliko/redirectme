@@ -12,5 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require jquery.role
+//= require jquery.nouislider
+//= require hammer
+//= require jquery.hammer
+//= require foundation
+//= require modernizr
+//= require core_ext
+//= require_self
+//= require groups
+
+$(function(){ $(document).foundation(); });

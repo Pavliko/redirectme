@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Master:
+  = @rule.master
+%p
+  %b User:
+  = @rule.user_id
+%p
+  %b Url:
+  = @rule.url
+%p
+  %b Expression:
+  = @rule.expression
+
+= link_to 'Edit', edit_rule_path(@rule)
+\|
+= link_to 'Back', rules_path

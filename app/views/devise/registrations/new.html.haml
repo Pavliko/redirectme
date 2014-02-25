@@ -1,0 +1,61 @@
+#index_content
+  .row.collapse
+    #index_icons_wrapper.small-2.medium-12.large-12.columns
+      #index_icons
+        %i.fi-torsos-all-female
+        %i.arrow.fi-arrow-down.show-for-small-only
+        %i.arrow.fi-arrow-right.show-for-medium-up
+        %i.fi-shuffle
+        %i.arrow.fi-arrow-down.show-for-small-only
+        %i.arrow.fi-arrow-right.show-for-medium-up
+        %i.fi-graph-trend
+        %i.arrow.fi-arrow-down.show-for-small-only
+        %i.arrow.fi-arrow-right.show-for-medium-up
+        %i.fi-dollar
+        .clearfix
+    .small-10.medium-12.large-12.columns
+      .row
+        .medium-6.large-4.columns
+          %h2 Что?
+          %p
+            Создайте ссылку попав на которую пользователи будет перенаправлены (средирекчены)
+            на одну из заданных вами страниц, по задынным вами правилам.
+            Можете использовать как наш, так и свои домены.
+            Количество целевых страниц (правил) не ограничено.
+            Управляйте ссылками через удобный личный кабинет.
+        .medium-6.large-5.columns
+          %h2 Зачем?
+          %dl
+            %dt Случайный выбор ссылки
+            %dd позволяет определить по какой из парнёрских программ выше конверсия данного вида трафика.
+            %dt A/B-тестирование (сплит тестирование)
+            %dd позволяет определить какая из версий страницы/формы является самой продающей.
+            %dt Скрытие реального адреса ссылки
+            %dd помогает скрыть адреса с партнёрскими маркерами, ссылки с доменов третьего уровня и&nbsp;т.&nbsp;п.
+        .medium-6.large-3.columns
+          %h2 Как?
+          %p
+            Заполнив форму регистрации вы попадёте на страницу создания ссылки и правил.
+            Вам будет предложено пройти ознакомительный тур, закончив его вы без труда сможете создать свою ссылку.
+            Нажмите "?" в правом верхнем углу, если что-то не понятно.
+        .medium-6.large-12.columns
+          #registration_form.row
+            = form_for User.new, url: user_registration_path, method: :post do |f|
+              - if resource.errors.present?
+                .clearfix
+                  - resource.errors.messages.each do |name, messages|
+                    - messages.each do |message|
+                      .alert-box.warning{data: {alert: ''}}
+                        = message
+                        %a.close{href: ?#} &times;
+              .show-for-medium-only.columns
+                %h2 Регистрация
+              .large-4.columns
+                = f.email_field :email, autofocus: !is_mobile_device?, placeholder: t('email')
+              .large-4.columns
+                = f.password_field :password, placeholder: t('password')
+              .large-4.columns
+                = f.submit t('registration'), class: [:button, :small]
+- footer_javascript do
+  :coffee
+    Ruler.fix_navigation()

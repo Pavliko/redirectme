@@ -1,0 +1,24 @@
+%h2= t(:groups_list)
+
+#groups
+  - @groups.each do |group|
+    .row
+      .small-6.medium-4.large-4.columns
+        %label
+          = link_to group.name, group.full_url, target: :_blank
+      .small-6.medium-2.large-2.columns
+        %label
+          = t(:hit_count_is, hit_count: group.rules.lazy.map(&:hit_count).map(&:to_i).sum)
+      .small-6.medium-3.large-3.columns.right
+        = link_to group, method: :delete, data: { confirm: t(:confirmation) }, class: [:button, :alert, :small] do
+          %i.fi-page-delete
+          = t(:destroy)
+      .small-6.medium-3.large-3.columns.right
+        = link_to edit_group_path(group), class: [:button, :small] do
+          %i.fi-page-edit
+          = t(:edit)
+  .row
+    .medium-4.large-4
+      = link_to new_group_path, class: [:button, :small, :create_group] do
+        %i.fi-plus
+        = t(:create_group)

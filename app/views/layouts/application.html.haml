@@ -1,0 +1,84 @@
+!!!
+%html
+  %head
+    %title RedirectMe - сервис редиректов
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
+    %meta{name: "apple-mobile-web-app-capable", content: "yes"}
+    %meta{name: "apple-mobile-web-app-status-bar-style", content: "black-translucent"}
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = csrf_meta_tags
+    = yield :header_scripts
+  %body
+    .off-canvas-wrap
+      .inner-wrap
+        %nav#top-nav.top-bar.tab-bar{"data-topbar" => ""}
+          - if current_user
+            %section.left-small.show-for-small-only
+              %a.left-off-canvas-toggle.menu-icon
+                %span
+
+          %section.middle.tab-bar-section
+            %h1.title
+              = link_to t(:redirectme), root_path
+              %span.show-for-medium-up= [' - ', t(:redirectme_desc)].join
+              %span.probability-sum{role: :stabilize}
+          %section.right.top-bar-section.show-for-medium-up
+            %ul#sign_nav.right
+              - if current_user
+                %li.has-dropdown
+                  %a{href: "#"}= t(:menu_groups)
+                  %ul.dropdown
+                    = render 'shared/menu_groups_items'
+                %li.has-dropdown
+                  %a{href: "#"}= t(:profile)
+                  %ul.dropdown
+                    = render 'shared/menu_profile_items'
+              - else
+                %li
+                  %a{ id: 'sign_in', href: '#sign_in', data: { 'reveal-id' => 'sign_in_modal', 'reveal' => ''} }= t(:sign_in)
+        - if current_user
+          %aside#side-menu.left-off-canvas-menu
+            %ul.off-canvas-list
+              = render 'shared/menu_profile_items'
+              %li
+                %label= t(:menu_groups)
+              = render 'shared/menu_groups_items'
+        #content_wrapper
+          #content
+            #in_content
+              = yield
+            %footer.row
+              .small-6.medium-6.large-6.columns
+                .copyright.left
+                  = t(:copyright)
+              .small-6.medium-6.large-6.columns
+                = link_to t(:feedback_link), feedback_path, class: :right
+
+
+
+
+        %a.exit-off-canvas
+
+    - unless current_user
+      #sign_in_modal.reveal-modal{"data-reveal" => ""}
+        #sign_in_form
+          = form_for User.new, url: user_session_path, html: {class: 'row'} do |f|
+            .large-4.columns
+              = f.email_field :email, autofocus: !is_mobile_device?, placeholder: t('email')
+            .large-4.columns
+              = f.password_field :password, placeholder: t('password')
+            .large-4.columns
+              = f.submit t('sign_in'), class: [:button, :small]
+            / .small-6.medium-6.large-6.columns
+            /   = f.check_box :remember_me
+            /   = f.label :remember_me
+            / .small-6.medium-6.large-6.columns.links_list
+            /   = link_to t('fogot_password'), new_password_path(resource_name)
+        / %a.close-reveal-modal ×
+
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = yield :footer_scripts
+    :coffee
+      $('#sign_in').on 'click', -> window.location.hash = '#sign_in'
+      $(-> $(window).on('resize', -> Ruler.window_resize()).trigger('resize'))
+      $(document).hammer(   ).on 'touch', '.reveal-modal-bg', -> $('[data-reveal]').foundation('reveal', 'close')

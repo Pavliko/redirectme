@@ -2,9 +2,9 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.1'
+# gem 'protected_attributes'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'mysql2' # Use sqlite3 as the database for Active Record
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -20,18 +20,47 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'role-rails' # Adds support for $('@role') selectors
+gem 'haml-rails'
+gem 'foundation-rails', git: 'git@github.com:KVZB/foundation-rails.git'
+gem 'hammerjs-rails'
+gem 'oj' # Faster JSON
+gem 'mobile-fu'
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'modernizr-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+# gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
+
+gem "erubis", "~> 2.7.0"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
 
+group :development do
+  gem 'better_errors' # Literally
+  gem 'binding_of_caller' # Literally
+  gem 'mina' # Deployment automation
+  gem 'letter_opener' # Open emails in browser instead of sending
+  gem 'meta_request'
+  gem 'awesome_print' # Console pretty printing
+  gem 'pry' # Console magic
+  gem 'pry-remote'
+  gem 'pry-stack_explorer'
+  gem 'pry-debugger'
+  gem 'pry-remote-auto'
+end
+
+gem 'devise'
+gem 'redis-rails' # Rails caching into redis
+gem 'hiredis' # Speed up redis
+gem 'redis', require: ['redis', 'redis/connection/hiredis']
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

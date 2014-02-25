@@ -1,0 +1,51 @@
+ru:
+  redirectme: RedirectMe
+  redirectme_desc: сервис редиректов
+  sign_in: Войти
+  sign_out: Выйти
+  sign_up: 'Регистрация:'
+  email: Почта
+  password: Пароль
+  registration: Зарегистрироваться
+  confirmation: Вы уверены что хотите удалить запись?
+  create_group: Создать группу
+  edit: Изменить
+  destroy: Удалить
+  hit_count_is: "переходов: %{hit_count}"
+  profile: Профиль
+  menu_groups: Группы
+  groups_list: Все группы
+  change_password: Изменить пароль
+  copyright: RedirectMe.ru © 2014
+  feedback_link: Обратная связь
+  groups:
+    form:
+      next: Дальше
+      group: Группа
+      new_group: Новая группа
+      rules: Правила
+      add_rule: Добавить правило
+      target_url: Целевой URL
+      stabilize: Распределить
+      stabilize_button: Кнопка "распеределить"
+      probability: Вероятность
+      lock_button: Кнопка блокировки
+      save: Сохранить
+      end: Конец
+      subdomain: Поддомен
+      domain: Домен
+      categotry: Категория
+      name: Название
+  errors:
+    messages:
+      not_saved: Не сохранено
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              blank: Пароль не может быть пустым
+              too_short: Пароль должен быть более 7-ми знаков
+            email:
+              taken: Этот адрес почты уже занят

@@ -1,0 +1,25 @@
+%h1 Listing rules
+
+%table
+  %tr
+    %th Master
+    %th User
+    %th Url
+    %th Expression
+    %th
+    %th
+    %th
+
+  - @rules.each do |rule|
+    %tr
+      %td= rule.master
+      %td= rule.user_id
+      %td= rule.url
+      %td= rule.expression
+      %td= link_to 'Show', rule
+      %td= link_to 'Edit', edit_rule_path(rule)
+      %td= link_to 'Destroy', rule, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Rule', new_rule_path

@@ -1,0 +1,130 @@
+- rules = @group.rules.all
+- rules = [ Rule.new(expression: 100) ] if rules.empty?
+%span#help_button.label.round.secondary{role: 'joyride-starter'} ?
+#group
+  %h2#group-title
+    =  @group.persisted? ? t('.group') : t('.new_group')
+  = form_for @group do |f|
+    .row
+      .columns
+        .row.collapse
+          = f.text_field :name, id: :group_name, placeholder: t('.name'), value: @group.name
+        #url.row.collapse
+          .medium-1.large-1.columns
+            %label#group-url
+              URL:
+          .small-11.medium-2.large-2.columns
+            = f.text_field :subdomain, id: :subdomain, placeholder: t('.subdomain'), value: @group.subdomain
+          .small-1.medium-1.large-1.columns
+            %span.postfix .
+          .medium-5.large-5.columns
+            = f.text_field :domain, id: :domain, placeholder: t('.domain'), value: @group.domain
+          .small-2.medium-1.large-1.columns
+            %span.prefix.fight= $GLOBAL[:category_prefix]
+          .small-10.medium-2.large-2.columns
+            = f.text_field :category, id: :category, placeholder: t('.categotry'), value: @group.category
+    #rules
+      .row
+        .medium-6.large-8.columns
+          %h3#rules-title.left
+            = t('.rules')
+        .medium-6.large-4.columns
+          %a#stabilize.button.success.small.right{role: :stabilize}
+            = t('.stabilize')
+            &nbsp;
+            %i.fi-arrows-in
+            &nbsp;
+            %span.probability-sum
+      - rules.each do |rule|
+        = hidden_field_tag 'group[rules_attributes][][id]', rule.id
+        .row.rule{role: :rule}
+          .large-5.columns
+            = url_field_tag 'group[rules_attributes][][url]', rule.url, placeholder: t('.target_url'), role: :url
+          .medium-6.large-4.columns.slider-wrapper
+            %div.rule_perc_slider{role: :slider}
+          .medium-6.large-3.columns
+            .row.collapse
+              .small-2.large-3.columns
+                %a.button.prefix.locker{role: :locker}
+                  %i.fi-unlock
+              .small-6.large-3.columns
+                = text_field_tag 'group[rules_attributes][][expression]', rule.expression, role: :value
+              .small-2.large-3.columns
+                %a.postfix.button{role: :decrese}
+                  %i.fi-minus
+              .small-2.large-3.columns
+                %a.postfix.button{role: :increse}
+                  %i.fi-plus
+    .row
+      .medium-6.large-3.columns
+        %a#add-rule.button.small.left{role: 'add-rule'}
+          = t('.add_rule')
+          %i.fi-plus
+      .medium-6.large-3.columns
+        = f.submit t('.save'), class: 'button right small', role: :save, id: 'save-group'
+
+%ol.joyride-list{data: {joyride: '', 'joyride-init' => {modal: true}}}
+  %li{ data: {id: 'group-title', text: t('.next')} }
+    %h4= t('.group')
+    %p Группа - набор правил перенаправлений. У группы есть назвение и URL (адрес по которому она доступна).
+  %li{ data: {id: 'group-url', text: t('.next')} }
+    %h4 URL группы
+    %p
+      Вы можете указать произвольный адрес по которому будет даступна группа,
+      перейдя на который вы будете перенаправлены в соответствии с правилами.
+      Вы можете как указать поддомен или категорию для нашего домена(#{request.host}), так и использовать свой домен/поддомен.
+      Чтобы использовать свой домен, его необходимо перенаправить на домен #{request.host}
+      (для этого необходимо на хостинге в настройках DNS изменить CNAME-запись для поддомена).
+      Запись CNAME должна выглядеть следующим образом: "your-domain-name.ru IN CNAME #{request.host}."
+      (Важно: после #{request.host}. должна стоять точка).
+  %li{ data: {id: 'rules-title', button: t('.next'), options: 'tip_location:top;'} }
+    %h4= t('.rules')
+    %p
+      Вы можете создать одно или несколько правил. Каждое правило состоит из целевого адреса
+      (URL на который будет перенаправлен пользователь после переход по адресу группы) и вероятности,
+      с которой произойдёт перенаправление именно по этому целевому адресу. Количество правил не ограничено, главное чтобы
+      сумма всех вероятностей была 100%.
+  %li{ data: {id: 'stabilize', button: t('.next'), options: 'tip_location:top;'} }
+    %h4= t('.stabilize_button')
+    %p
+      Эта кнопка автоматически распределит вероятности так, что сумма была равна 100%,
+      при этом разность равномерно распределиться по всем не заблокированным правилам.
+      / Кнопка имеет три состояния, которые характеризуются цветом фона:
+      / %i.fi-arrows-in{style: 'font-size: 10px; margin: 0 3px'}
+      / Синий - при нажатии кнопки произойдёт распределение;
+      / %i.fi-arrows-in{style: 'font-size: 10px; margin: 0 3px'}
+      / Зелёный - сумма всех вероятностей - 100%;
+      / %i.fi-arrows-in{style: 'font-size: 10px; margin: 0 3px'}
+      / Красный - сумма вероятностей заблокироанных правил больше 100% - распределение невозможно;
+  %li{ data: {id: 'slider_0', button: t('.next'), options: 'tip_location:top;'} }
+    %h4= t('.probability')
+    %p
+      Вероятность можно установить разными способами: перетаскивая ползунок,
+      напрямую введя значение в поле ввода или кнопками "+"/"-".
+  %li{ data: {id: 'locker_0', button: t('.next')} }
+    %h4= t('.lock_button')
+    %p
+      Этой кнопкой можно заблокировать значение вероятности в правиле, при нажетии кнопки "распределить"
+      вероятность в заблокированных правилах не измениться. Рассмотрим на примере:
+      %br
+      У вас есть три правило, на первое вам нужно послать 50% пользователей, на остальные два по 25%.
+      Для этого надо выставить в первом правиле вероятность 50%, заблокировать это значение, и нажать на кнопку "распределить", остальные 50%
+      будут равномерно распределены по оставшимся правилам.
+  %li{ data: {id: 'add-rule', button: t('.next')} }
+    %h4= t('.add_rule')
+    %p Кнопка добавляет новое правило к группе.
+  %li{ data: {id: 'save-group', button: t('.end')} }
+    %h4= t('.save')
+    %p Кнопка сохранения правила.
+
+- footer_javascript do
+  :javascript
+    $(function(){
+      Ruler.init({probability: '#{t(".probability")}'});
+    });
+- if current_user.groups.count.zero?
+  - footer_javascript do
+    :javascript
+      $(function(){
+        Ruler.joyride_toggle(true);
+      });

@@ -1,0 +1,127 @@
+@import "foundation_and_overrides";
+@import "jquery.nouislider";
+@import "groups";
+@import "index";
+
+h1.title a {
+  float: left;
+  color: $tabbar-color;
+}
+
+h1.title span {
+  float: left;
+  padding-left: rem-calc(10);
+  &:before {
+    content: ' ';
+  }
+}
+#sign_in_modal {
+  padding: rem-calc(15) rem-calc(30);
+  input[type="submit"] {
+    margin: 0;
+  }
+}
+
+#content_wrapper {
+  width: 100%;
+}
+#content {
+  width: 100%;
+}
+#in_content {
+  position: relative;
+  max-width: rem-calc(1000);
+  margin: auto;
+}
+input[type="submit"], button {
+  background: $primary-color;
+}
+input[type="text"], input[type="email"], input[type="password"] {
+  background: $body-bg;
+}
+footer.row {
+  width: 100%;
+  padding: rem-calc(15) 0;
+  .copyright {
+//    font-size: rem-calc(12);
+    font-weight: 200;
+  }
+  max-width: none;
+}
+.noUi-background{
+  background-color: $success-color;
+  &.alert_slider {
+    background-color: $alert-color;
+  }
+}
+.noUi-origin {
+  background-color: $secondary-color;
+}
+.noUi-base {
+  padding: rem-calc(1) rem-calc(5) ;
+  color: white;
+  font-weight: 200;
+  font-size: 80%;
+}
+.clearfix {
+  @include clearfix;
+}
+
+.links_list .links_list_item {
+  &:after {
+    content: ' | ';
+  }
+  &:last-child{
+    &:after {
+      content: '';
+    }
+  }
+}
+
+@media #{$small-up} {
+  #content {
+    padding: 5px;
+  }
+}
+@media #{$small-only} {
+  .button:hover {
+    background: $primary-color;
+  }
+  #sign_nav{
+    li a{
+      padding-right: 12px;
+    }
+  }
+  #sign_in_modal {
+    padding: rem-calc(10);
+    top: $tabbar-height;
+    width: 100%;
+    margin-left: -50%;
+  }
+}
+
+@media #{$medium-up} {
+  #content {
+    padding: 10px;
+  }
+}
+@media #{$medium-only} {
+
+}
+
+@media #{$large-up} {
+  #content {
+    padding: 15px;
+  }
+}
+@media #{$large-only} { }
+
+@media #{$xlarge-up} { }
+@media #{$xlarge-only} { }
+
+@media #{$xxlarge-up} { }
+@media #{$xxlarge-only} { }
+
+#registration_form .button.small, #sign_in_form .button.small{
+  padding: rem-calc(8);
+}

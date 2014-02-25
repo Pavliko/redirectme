@@ -1,0 +1,8 @@
+%li
+  %label= current_user.email
+/ %li
+/   = link_to t(:change_password), destroy_user_session_path, method: :delete
+%li
+  = link_to t(:feedback_link), feedback_path
+%li
+  = link_to t(:sign_out), destroy_user_session_path, method: :delete

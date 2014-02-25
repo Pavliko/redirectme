@@ -1,0 +1,117 @@
+#index_content {
+  width: 100%;
+  #index_icons {
+    width: rem-calc(80)*7 + rem-calc(25)*14 + rem-calc(30);
+    margin: auto;
+  }
+  i {
+    width: rem-calc(80);
+    font-size: rem-calc(80);
+    margin: 0 rem-calc(25);
+    float:left;
+    text-align: center;
+    &.arrow {
+      font-size: rem-calc(60);
+      margin: rem-calc(10) rem-calc(25);
+    }
+  }
+  dl {
+    dd {
+      margin-bottom: 5px;
+    }
+    dt {
+      margin: 0;
+    }
+  }
+}
+
+#registration_form, #sign_in_form {
+  input {
+    font-weight: 100 !important;
+    letter-spacing: rem-calc(1);
+    font-size: rem-calc(22);
+  }
+
+  .button {
+    width: 100%;
+  }
+  .links_list {
+    text-align: right;
+  }
+  .alert-box {
+    display: inline-block;
+    font-size: rem-calc(22);
+    font-weight: 100;
+    padding-top: rem-calc(10);
+    padding-bottom: rem-calc(10);
+    padding-right: rem-calc(35);
+    float: left;
+    margin: rem-calc(5);
+    a {
+      font-weight: 400;
+    }
+  }
+}
+
+@media #{$small-only} {
+  #index_icons_wrapper {
+    position: fixed;
+  }
+  #index_content {
+    #index_icons {
+      width: rem-calc(35);
+      margin:auto;
+    }
+    i {
+      width: 100%;
+      margin: rem-calc(20) 0;
+      font-size: rem-calc(30);
+      &.arrow {
+        margin: rem-calc(10) 0;
+        font-size: rem-calc(20);
+      }
+    }
+  }
+  #registration_form, #sign_in_form {
+    input {
+      font-size: rem-calc(18);
+    }
+    .columns{
+      padding: 0;
+    }
+    .links_list {
+      text-align: center;
+    }
+  }
+}
+
+@media #{$medium-only} {
+  #index_content {
+    #index_icons {
+      width: rem-calc(50)*7 + rem-calc(15)*14 + rem-calc(30);
+      margin:auto;
+    }
+    i {
+      width: rem-calc(50);
+      font-size: rem-calc(50);
+      margin: rem-calc(15);
+      &.arrow {
+        font-size: rem-calc(35);
+        margin: rem-calc(25) rem-calc(15);
+      }
+    }
+  }
+  #registration_form, #sign_in_form {
+    input {
+      font-size: rem-calc(20);
+    }
+    .columns{
+      padding: 0;
+    }
+  }
+}
+@media #{$large-up} {
+  input[type="password"], input[type="email"] {
+    margin: 4px 0;
+  }
+}

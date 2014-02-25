@@ -1,0 +1,14 @@
+#sign_in_form.row
+  = form_for(User.new, as: :user, :url => session_path(:user)) do |f|
+    = devise_error_messages!
+    .large-5.columns
+      = f.email_field :email, autofocus: !is_mobile_device?, placeholder: t('email')
+    .large-4.columns
+      = f.password_field :password, placeholder: t('password')
+    .large-3.columns
+      = f.submit t('sign_in'), class: [:button, :small]
+    .medium-6.large-6.columns
+      = f.check_box :remember_me
+      = f.label :remember_me
+    .medium-6.large-6.columns.links_list
+      = render "devise/shared/links"
