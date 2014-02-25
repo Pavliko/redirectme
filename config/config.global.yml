@@ -1,4 +1,4 @@
-category_prefix: '/go/'
+category_prefix: '/go'
 service_hosts:
   - 'redirectme.local'
   - 'redirectme.ru'

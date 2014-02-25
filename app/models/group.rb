@@ -11,7 +11,7 @@ class Group < ActiveRecord::Base
 
   def set_full_url
     Rails.cache.delete cache_key if full_url.present?
-    self.full_url = "http://#{subdomain}#{subdomain.present? ? '.' : ''}#{domain}#{category.present? && service_domain? ? $GLOBAL[:category_prefix]  : ''}#{category}"
+    self.full_url = "http://#{subdomain}#{subdomain.present? ? '.' : ''}#{domain}#{service_domain? ? $GLOBAL[:category_prefix]  : ''}/#{category}"
   end
 
   def generate_cache
