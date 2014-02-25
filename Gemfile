@@ -29,6 +29,10 @@ gem 'mobile-fu'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'modernizr-rails'
+gem 'devise'
+gem 'redis-rails' # Rails caching into redis
+gem 'hiredis' # Speed up redis
+gem 'redis', require: ['redis', 'redis/connection/hiredis']
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'
@@ -47,6 +51,7 @@ group :development do
   gem 'better_errors' # Literally
   gem 'binding_of_caller' # Literally
   gem 'mina' # Deployment automation
+  gem 'mina-sidekiq' # Deployment tasks for Sidekiq
   gem 'letter_opener' # Open emails in browser instead of sending
   gem 'meta_request'
   gem 'awesome_print' # Console pretty printing
@@ -56,11 +61,6 @@ group :development do
   gem 'pry-debugger'
   gem 'pry-remote-auto'
 end
-
-gem 'devise'
-gem 'redis-rails' # Rails caching into redis
-gem 'hiredis' # Speed up redis
-gem 'redis', require: ['redis', 'redis/connection/hiredis']
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
