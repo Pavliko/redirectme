@@ -22,14 +22,14 @@
               = link_to t(:redirectme), root_path
               %span.show-for-medium-up= [' - ', t(:redirectme_desc)].join
               %span.probability-sum{role: :stabilize}
-          %section.right.top-bar-section.show-for-medium-up
+          %section.right.top-bar-section
             %ul#sign_nav.right
               - if current_user
-                %li.has-dropdown
+                %li.has-dropdown.show-for-medium-up
                   %a{href: "#"}= t(:menu_groups)
                   %ul.dropdown
                     = render 'shared/menu_groups_items'
-                %li.has-dropdown
+                %li.has-dropdown.show-for-medium-up
                   %a{href: "#"}= t(:profile)
                   %ul.dropdown
                     = render 'shared/menu_profile_items'
