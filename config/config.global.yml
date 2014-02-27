@@ -3,3 +3,4 @@ service_hosts:
   - 'redirectme.local'
   - 'redirectme.ru'
   - 'localhost:3000'
+  - 'dev.pavliko.com:3000'
