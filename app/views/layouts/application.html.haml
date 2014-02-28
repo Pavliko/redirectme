@@ -76,3 +76,4 @@
       $('#sign_in').on 'click', -> window.location.hash = '#sign_in'
       $(-> $(window).on('resize', -> Ruler.window_resize()).trigger('resize'))
       $(document).hammer(   ).on 'touch', '.reveal-modal-bg', -> $('[data-reveal]').foundation('reveal', 'close')
+    = render 'shared/counters'
