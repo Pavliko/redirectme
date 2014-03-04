@@ -57,6 +57,7 @@
                   = link_to t(:feedback_link), feedback_path, class: :right
         %a.exit-off-canvas
 
+    #alert_box
     - unless current_user
       #sign_in_modal.reveal-modal{"data-reveal" => ""}
         #sign_in_form
@@ -70,8 +71,11 @@
 
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = yield :footer_scripts
+    = render 'shared/flash_messages'
     :coffee
       $('#sign_in').on 'click', -> window.location.hash = '#sign_in'
       $(-> $(window).on('resize', -> Ruler.window_resize()).trigger('resize'))
+      Ruler.fix_navigation()
       $(document).hammer(   ).on 'touch', '.reveal-modal-bg', -> $('[data-reveal]').foundation('reveal', 'close')
-    = render 'shared/counters'
+    - if production?
+      = render 'shared/counters'

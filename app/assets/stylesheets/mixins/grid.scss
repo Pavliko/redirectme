@@ -1,0 +1,10 @@
+%collapsed-row {
+  @extend .row;
+  @extend .collapse;
+}
+@mixin grid($small: null, $medium: null, $large: null) {
+  @if $small {  @extend .small-#{$small}; }
+  @if $medium { @extend .medium-#{$medium}; }
+  @if $large {  @extend .large-#{$large}; }
+  @extend .columns;
+}

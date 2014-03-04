@@ -18,6 +18,7 @@ window.Ruler =
     @validate()
 
   initialize_events: ->
+    @joyride_starter = $('@joyride-starter')
     $('#rules').hammer(   ).on 'touch',     '@increse',       (e) => @increase_touch $(e.currentTarget),   @step
     $('#rules').hammer(   ).on 'touch',     '@decrese',       (e) => @increase_touch $(e.currentTarget), - @step
     $('#rules').hammer(   ).on 'release',   '@decrese, @increse', -> $(this).data('touched', false).data('drag-lock', false)
@@ -27,16 +28,26 @@ window.Ruler =
     $('#rules'            ).on 'click',     '@locker',        (e) => @toggle_lock($(e.currentTarget).data('index'))
     $('@stabilize'        ).on 'click',                           => @stabilize()
     $('@add-rule'         ).on 'click',                           => @add_rule()
-    @joyride_starter = $('@joyride-starter')
     @joyride_starter.on        'click',                       (e) => @joyride_toggle();
 
     @fix_navigation()
 
+  zero_clipboard_init: ->
+    ZeroClipboard.config
+      swfPath: '/ZeroClipboard.swf'
+
+    client = new ZeroClipboard $("@copy-button")
+
+    client.on "load", (client) ->
+      client.on  "complete", (client, args) ->
+        $.fading_alert "Copied text to clipboard: #{args.text}"
+
   window_resize: ->
-    wh = $(window).height()
-    nh = $('#top-nav').outerHeight()
-    fh = $('footer').outerHeight()
-    ih= $('#in_content').height()
+    wh = $(window       ).height()
+    nh = $('#top-nav'   ).outerHeight()
+    fh = $('footer'     ).outerHeight()
+    ih = $('#in_content').height()
+
     $content = $('#content')
     pd = parseInt($content.css('padding'))
     fo = if @nav_fixed then 0 else fh

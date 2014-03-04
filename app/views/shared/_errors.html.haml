@@ -1,0 +1,6 @@
+- if resource.errors.present?
+  - resource.errors.messages.each do |name, messages|
+    - messages.each do |message|
+      - footer_javascript do
+        :javascript
+          $(function(){$.fading_alert('#{message}', 'alert');});

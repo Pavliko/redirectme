@@ -1,7 +1,8 @@
 @import "foundation_and_overrides";
+@import "mixins";
+@import "layouts";
+@import "objects";
 @import "jquery.nouislider";
-@import "groups";
-@import "index";
 
 h1.title a {
   float: left;

@@ -29,13 +29,17 @@
   .row {
     padding: rem-calc(5) 0;
   }
-  .button {
-    width: 100%;
-    margin: 0;
+  .group {
+    .button {
+      width: 100%;
+      margin: rem-calc(20) 0 0 0;
+    }
   }
-  label {
+  .full-url-input {
+    background-color: white;
+    border-color: $primary-color;
+    border-right: none;
     margin: 0;
-    padding: rem-calc(14);
   }
 }
 #group {

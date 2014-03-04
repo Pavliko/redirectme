@@ -1,0 +1,11 @@
+#alerts_container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  display: none;
+  text-align: center;
+  .alert-box {
+    margin-bottom: 0;
+  }
+}

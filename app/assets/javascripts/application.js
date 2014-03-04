@@ -18,8 +18,10 @@
 //= require jquery.hammer
 //= require foundation
 //= require modernizr
+//= require zeroclipboard.min
 //= require core_ext
 //= require_self
 //= require groups
+//= require alerts
 
 $(function(){ $(document).foundation(); });

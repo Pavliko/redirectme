@@ -25,16 +25,8 @@
             = f.text_field :category, id: :category, placeholder: t('.categotry'), value: @group.category
     #rules
       .row
-        .medium-6.large-8.columns
-          %h3#rules-title.left
-            = t('.rules')
-        .medium-6.large-4.columns
-          %a#stabilize.button.success.small.right{role: :stabilize}
-            = t('.stabilize')
-            &nbsp;
-            %i.fi-arrows-in
-            &nbsp;
-            %span.probability-sum
+        %h3#rules-title.left
+          = t('.rules')
       - rules.each do |rule|
         = hidden_field_tag 'group[rules_attributes][][id]', rule.id
         .row.rule{role: :rule}
@@ -56,12 +48,19 @@
                 %a.postfix.button{role: :increse}
                   %i.fi-plus
     .row
-      .medium-6.large-3.columns
+      .medium-6.large-4.columns
         %a#add-rule.button.small.left{role: 'add-rule'}
           = t('.add_rule')
           %i.fi-plus
-      .medium-6.large-3.columns
-        = f.submit t('.save'), class: 'button right small', role: :save, id: 'save-group'
+      .medium-6.large-4.columns
+        %a#stabilize.button.success.small.right{role: :stabilize}
+          = t('.stabilize')
+          &nbsp;
+          %i.fi-arrows-in
+          &nbsp;
+          %span.probability-sum
+      .medium-6.large-4.columns
+        = f.submit t('.save'), class: 'button small', role: :save, id: 'save-group'
 
 %ol.joyride-list{data: {joyride: '', 'joyride-init' => {modal: true}}}
   %li{ data: {id: 'group-title', text: t('.next')} }

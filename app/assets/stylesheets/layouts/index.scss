@@ -1,5 +1,9 @@
 #index_content {
+  @extend %collapsed-row;
   width: 100%;
+  #index_icons_wrapper {
+    @include grid($small: 2);
+  }
   #index_icons {
     width: rem-calc(80)*7 + rem-calc(25)*14 + rem-calc(30);
     margin: auto;

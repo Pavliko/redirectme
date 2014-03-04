@@ -1,50 +1,43 @@
 #index_content
-  .row.collapse
-    #index_icons_wrapper.small-2.medium-12.large-12.columns
-      #index_icons
-        %i.fi-torsos-all-female
-        %i.arrow.fi-arrow-down.show-for-small-only
-        %i.arrow.fi-arrow-right.show-for-medium-up
-        %i.fi-shuffle
-        %i.arrow.fi-arrow-down.show-for-small-only
-        %i.arrow.fi-arrow-right.show-for-medium-up
-        %i.fi-graph-trend
-        %i.arrow.fi-arrow-down.show-for-small-only
-        %i.arrow.fi-arrow-right.show-for-medium-up
-        %i.fi-dollar
-        .clearfix
-    .small-10.medium-12.large-12.columns
-      .row
-        .medium-6.large-4.columns
-          %h2= t('.what')
-          %p= t('.what_description')
-        .medium-6.large-5.columns
-          %h2= t('.why')
-          %dl
-            - t('.why_description').each do |(title, description)|
-              %dt= title
-              %dd= description
-        .medium-6.large-3.columns
-          %h2= t('.how')
-          %p= t('.how_description')
-        .medium-6.large-12.columns
-          #registration_form.row
-            = form_for User.new, url: user_registration_path, method: :post do |f|
-              - if resource.errors.present?
-                .clearfix
-                  - resource.errors.messages.each do |name, messages|
-                    - messages.each do |message|
-                      .alert-box.warning{data: {alert: ''}}
-                        = message
-                        %a.close{href: ?#} &times;
-              .show-for-medium-only.columns
-                %h2= t('registration')
-              .large-4.columns
-                = f.email_field :email, autofocus: !is_mobile_device?, placeholder: t('email')
-              .large-4.columns
-                = f.password_field :password, placeholder: t('password')
-              .large-4.columns
-                = f.submit t('registration'), class: [:button, :small]
+  #index_icons_wrapper
+    #index_icons
+      %i.fi-torsos-all-female
+      %i.arrow.fi-arrow-down.show-for-small-only
+      %i.arrow.fi-arrow-right.show-for-medium-up
+      %i.fi-shuffle
+      %i.arrow.fi-arrow-down.show-for-small-only
+      %i.arrow.fi-arrow-right.show-for-medium-up
+      %i.fi-graph-trend
+      %i.arrow.fi-arrow-down.show-for-small-only
+      %i.arrow.fi-arrow-right.show-for-medium-up
+      %i.fi-dollar
+      .clearfix
+  .small-10.medium-12.large-12.columns
+    .row
+      .medium-6.large-4.columns
+        %h2= t('.what')
+        %p= t('.what_description')
+      .medium-6.large-5.columns
+        %h2= t('.why')
+        %dl
+          - t('.why_description').each do |(title, description)|
+            %dt= title
+            %dd= description
+      .medium-6.large-3.columns
+        %h2= t('.how')
+        %p= t('.how_description')
+      .medium-6.large-12.columns
+        #registration_form.row
+          = form_for resource || User.new, url: user_registration_path, method: :post do |f|
+            = render 'shared/errors', resource: resource
+            .show-for-medium-only.columns
+              %h2= t('registration')
+            .large-4.columns
+              = f.email_field :email, autofocus: !is_mobile_device?, placeholder: t('email')
+            .large-4.columns
+              = f.password_field :password, placeholder: t('password')
+            .large-4.columns
+              = f.submit t('registration'), class: [:button, :small]
 - footer_javascript do
   :coffee
     Ruler.fix_navigation()
