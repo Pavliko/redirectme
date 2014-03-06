@@ -5,12 +5,14 @@ window.Ruler =
   rules: []
   step: 0.01
   joyride_started: false
+  group_url: ''
+  sym_map: {"а": "a","б": "b","в": "v","г": "g","Ґ": "G","ґ": "g","д": "d","е": "e","ё": "e","є": "ie","ж": "zh","з": "z","и": "y","й": "i","к": "k","л": "l","м": "m","н": "n","о": "o","п": "p","р": "r","с": "s","т": "t","у": "u","ф": "f","х": "kh","ц": "ts","ч": "ch","ш": "sh","щ": "shch","ы": "y","э": "e","ю": "iu","я": "ia","ь": "","ъ": "","\"": ""," ": "_","-": "_"}
 
   init: (translations = {})->
     @translations = translations
-    @role_tpl = $('@rule:last-child').clone()
-    @role_tpl.find('@value').val(100)
-    @role_tpl.find('@url'  ).val('')
+    @rule_tpl = $('@rule:last-child').clone()
+    @rule_tpl.find('@value').val(100)
+    @rule_tpl.find('@rule-url'  ).val('')
     @probability_sum = $('.probability-sum')
     (@initialize_rule $(rule) for rule in $('@rule'))
     @max_index = @rules.length - 1
@@ -19,20 +21,25 @@ window.Ruler =
 
   initialize_events: ->
     @joyride_starter = $('@joyride-starter')
-    $('#rules').hammer(   ).on 'touch',     '@increse',       (e) => @increase_touch $(e.currentTarget),   @step
-    $('#rules').hammer(   ).on 'touch',     '@decrese',       (e) => @increase_touch $(e.currentTarget), - @step
-    $('#rules').hammer(   ).on 'release',   '@decrese, @increse', -> $(this).data('touched', false).data('drag-lock', false)
-    $('#rules').hammer(   ).on 'dragstart', '@decrese, @increse', -> $(this).data('touched', false) unless $(this).data('drag-lock')
-    $('#rules'            ).on 'click',     '@increse',       (e) => @increse($(e.currentTarget).data('index'),   @step); @validate()
-    $('#rules'            ).on 'click',     '@decrese',       (e) => @increse($(e.currentTarget).data('index'), - @step); @validate()
+    # $('#rules').hammer(   ).on 'touch',     '@increse',       (e) => @increase_touch $(e.currentTarget),   @step
+    # $('#rules').hammer(   ).on 'touch',     '@decrese',       (e) => @increase_touch $(e.currentTarget), - @step
+    # $('#rules').hammer(   ).on 'release',   '@decrese, @increse', -> $(this).data('touched', false).data('drag-lock', false)
+    # $('#rules').hammer(   ).on 'dragstart', '@decrese, @increse', -> $(this).data('touched', false) unless $(this).data('drag-lock')
+    # $('#rules'            ).on 'click',     '@increse',       (e) => @increse($(e.currentTarget).data('index'),   @step); @validate()
+    # $('#rules'            ).on 'click',     '@decrese',       (e) => @increse($(e.currentTarget).data('index'), - @step); @validate()
     $('#rules'            ).on 'click',     '@locker',        (e) => @toggle_lock($(e.currentTarget).data('index'))
+    $('#rules'            ).on 'focusin',   '@rule-url',          -> $(this).val('http://') unless $(this).val()
+    $('#rules'            ).on 'focusout',  '@rule-url',          -> $(this).val('') if $(this).val() == 'http://'
     $('@stabilize'        ).on 'click',                           => @stabilize()
     $('@add-rule'         ).on 'click',                           => @add_rule()
+    $('@group-name'       ).on('keyup change',                (e) => @generate_group_url($(e.currentTarget).val())).trigger('change')
+    $('@group-url'        ).on 'keyup change',                (e) => $(e.currentTarget).val(@group_url)
+
     @joyride_starter.on        'click',                       (e) => @joyride_toggle();
 
     @fix_navigation()
 
-  zero_clipboard_init: ->
+  zero_clipboard_init: (message) ->
     ZeroClipboard.config
       swfPath: '/ZeroClipboard.swf'
 
@@ -40,7 +47,16 @@ window.Ruler =
 
     client.on "load", (client) ->
       client.on  "complete", (client, args) ->
-        $.fading_alert "Copied text to clipboard: #{args.text}"
+        $.fading_alert "#{message}: #{args.text}", 'success'
+
+  generate_group_url: (slug) ->
+    slug = $.map slug.toLowerCase().split(''), (char) =>
+      sym = @sym_map[char]
+      if sym then sym else char
+
+    @group_url = "http://#{window.location.host}/go/#{slug.join('')}"
+    $('@group-url').val(@group_url)
+
 
   window_resize: ->
     wh = $(window       ).height()
@@ -78,7 +94,7 @@ window.Ruler =
     $(window).resize()
 
   add_rule: ->
-    rule = @role_tpl.clone()
+    rule = @rule_tpl.clone()
     $('#rules').append rule
     @initialize_rule rule
     $(window).trigger 'resize'
@@ -90,8 +106,8 @@ window.Ruler =
       slider:  rule.find('@slider' ).data('index', @max_index).attr('id', "slider_#{@max_index}")
       value:   rule.find('@value'  ).data('index', @max_index)
       locker:  rule.find('@locker' ).data('index', @max_index).attr('id', "locker_#{@max_index}")
-      increse: rule.find('@increse').data('index', @max_index)
-      decrese: rule.find('@decrese').data('index', @max_index)
+      # increse: rule.find('@increse').data('index', @max_index)
+      # decrese: rule.find('@decrese').data('index', @max_index)
     @initialize_slider result.slider, result.value
     @rules[@max_index] = result
 
@@ -203,4 +219,3 @@ window.Ruler =
       return
 
     @joyride_starter.toggle()
-

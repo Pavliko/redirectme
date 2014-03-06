@@ -7,15 +7,14 @@ class Group < ActiveRecord::Base
   before_save :set_full_url, :generate_cache
 
   validates :full_url, uniqueness: true
-  validates :domain, format: { with: /\A[^\.]+\.[^\.]{2,}\z/, message: "Only domains" }
-
-  def set_full_url
-    Rails.cache.delete cache_key if full_url.present?
-    self.full_url = "http://#{subdomain}#{subdomain.present? ? '.' : ''}#{domain}#{service_domain? ? $GLOBAL[:category_prefix]  : ''}/#{category}"
-  end
 
   def generate_cache
+    Rails.cache.delete cache_key if full_url.present?
     Rails.cache.write cache_key, rules_proc, raw: true
+  end
+
+  def name_or_generate count
+    name || I18n.t('group_default_name', id: count)
   end
 
   def cache_key

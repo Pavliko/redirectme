@@ -20,6 +20,7 @@ class Alert
   fading: ->
     self = this
     @body.delay(1000).hover(-> $(this).stop().fadeIn().mouseout(-> $(this).stop().fadeOut(self.speed, -> self.check_container()))).find('.close').click().hide()
+    @body.on('click', -> $(this).remove())
   check_container: ->
     @container.hide() if @container && @container.find('[data-alert]:visible').length == 0
 
