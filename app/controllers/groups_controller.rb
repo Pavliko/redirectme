@@ -30,7 +30,7 @@ class GroupsController < ApplicationController
     if @group.save
       redirect_to groups_path, flash: { success: I18n.t('group.created') }
     else
-      frender action: 'edit'
+      render action: 'edit'
     end
   end
 

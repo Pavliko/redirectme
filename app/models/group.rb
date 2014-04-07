@@ -4,7 +4,7 @@ class Group < ActiveRecord::Base
 
   accepts_nested_attributes_for :rules
 
-  before_save :set_full_url, :generate_cache
+  before_save :generate_cache
 
   validates :full_url, uniqueness: true
 
