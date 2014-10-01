@@ -22,7 +22,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'role-rails' # Adds support for $('@role') selectors
 gem 'haml-rails'
-gem 'foundation-rails', git: 'git@github.com:KVZB/foundation-rails.git'
+gem 'foundation-rails'
 gem 'hammerjs-rails'
 gem 'oj' # Faster JSON
 gem 'mobile-fu'
@@ -58,7 +58,7 @@ group :development do
   gem 'pry' # Console magic
   gem 'pry-remote'
   gem 'pry-stack_explorer'
-  gem 'pry-debugger'
+  # gem 'pry-debugger'
   gem 'pry-remote-auto'
 end
 # Use ActiveModel has_secure_password
