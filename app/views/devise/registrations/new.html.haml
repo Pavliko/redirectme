@@ -26,18 +26,20 @@
       .medium-6.large-3.columns
         %h2= t('.how')
         %p= t('.how_description')
-      .medium-6.large-12.columns
-        #registration_form.row
-          = form_for resource || User.new, url: user_registration_path, method: :post do |f|
-            = render 'shared/errors', resource: resource
-            .show-for-medium-only.columns
-              %h2= t('registration')
-            .large-4.columns
-              = f.email_field :email, autofocus: !is_mobile_device?, placeholder: t('email')
-            .large-4.columns
-              = f.password_field :password, placeholder: t('password')
-            .large-4.columns
-              = f.submit t('registration'), class: [:button, :small]
+      .medium-6.large-12.column
+        %h2= t('.under_reconstruction')
+      -# .medium-6.large-12.columns
+      -#   #registration_form.row
+      -#     = form_for resource || User.new, url: user_registration_path, method: :post do |f|
+      -#       = render 'shared/errors', resource: resource
+      -#       .show-for-medium-only.columns
+      -#         %h2= t('registration')
+      -#       .large-4.columns
+      -#         = f.email_field :email, autofocus: !is_mobile_device?, placeholder: t('email')
+      -#       .large-4.columns
+      -#         = f.password_field :password, placeholder: t('password')
+      -#       .large-4.columns
+      -#         = f.submit t('registration'), class: [:button, :small]
 - footer_javascript do
   :coffee
     Ruler.fix_navigation()

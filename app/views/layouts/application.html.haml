@@ -35,9 +35,9 @@
                   %a{href: "#"}= t(:profile)
                   %ul.dropdown
                     = render 'shared/menu_profile_items'
-              - else
-                %li
-                  %a{ id: 'sign_in', href: '#sign_in', data: { 'reveal-id' => 'sign_in_modal', 'reveal' => ''} }= t(:sign_in)
+              -# - else
+              -#   %li
+              -#     %a{ id: 'sign_in', href: '#sign_in', data: { 'reveal-id' => 'sign_in_modal', 'reveal' => ''} }= t(:sign_in)
         - if current_user
           %aside#side-menu.left-off-canvas-menu
             %ul.off-canvas-list
